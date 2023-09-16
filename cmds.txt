@@ -1,0 +1,42 @@
+===========================================
+			Docker basic Commands
+===========================================
+
+docker images --> to list all the images
+docker pull [image name] [:tag] --> dowlaod an image
+docker image rm [image name] --> remove an image
+
+docker ps --> list running the containers
+docker ps -a --> list all the containers
+docker create [image name] 
+docker create [image name] --name [container name] --> to create a container and chose its name
+docker create -p[client port]:[host port] --name [container name] [image name] --> create a port map to the container
+
+docker start [container name] --> to run a container
+docker logs [container name-id] --> to she container logs
+docker logs --folow [container name-id] --> to she container logs in running time
+docker stop [container name] --> stop a running container
+docker run [image name] --> dowlaod an image, create a container and run the container
+docker run -d [image name] --> run a detached container
+docker rm [container name-id] --> remove a container
+
+docker exec -it CONTAINER_NAME mariadb -u root -p --> para conectarse a un cntenedor con mariadb
+
+docker networks ls --> to list all the networks
+
+docker build [Dockerfile path] --> to build a container with the image created with the Dockerfile
+	- docker build -t [image name]:[tag name] [Dockerfile path] --> to stablish the image name and tags
+
+
+===========================================
+			Dockerfile keywords
+===========================================
+
+FROM [image] --> to stablish the container image
+	- FROM scratc --> start a container with an empty image
+
+MAINTAINER [name and surname] [<email>] --> to stablish the container mantainer
+
+RUN [command] --> execute something during the building phase
+
+CMD ["cmd", "args1", ...] --> execute commands after building the container fromthe created image
