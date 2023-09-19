@@ -6,6 +6,7 @@ docker pull [image name] [:tag] --> dowlaod an image
 
 docker images --> to list all the images
 docker image rm [image name] --> remove an image
+docker rmi $(docker images -q) --> remoe all the images
 
 docker ps --> list running the containers
 	- "-a" --> to show all the containers
@@ -31,6 +32,7 @@ docker run [image name] --> dowlaod an image, create a container and run the con
 	- "--network [network name]" --> to stablish the network
 
 docker rm [container name-id] --> remove a container
+docker rm -f $(docker ps -a -q) --> reemove all the containers
 
 docker exec -it [contaner name] [command] --> para ejecutar iun comando dentro del contenedor
 	- [sh] --> abre el contenedor y ejecuta bash dentro para pdoer nevegar a traves de el
@@ -43,6 +45,8 @@ docker system prune -a
 docker commit [name or id] [tag] --> to create an new image from a opned container
 docker restart [container name] --> to restar a contaner
 docker stats --> to see al container stats in real time
+docker attach [container name] --> to connect to the container terminal. If you exited it will stop the container
+docker inspect [element name] --> to get info about a contianer o network
 
 
 ===========================================
@@ -67,3 +71,12 @@ MAINTAINER [name and surname] [<email>] --> to stablish the container mantainer
 RUN [command] --> execute something during the building phase
 
 CMD ["cmd", "args1", ...] --> execute commands after building the container fromthe created image
+
+
+===========================================
+			NGINX COMMNADS
+===========================================
+
+ps aux | grep nginx --> to check if nginx is running
+ps aux | "grep nginx" --> to run nginx in foreground
+
