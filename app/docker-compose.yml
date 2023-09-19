@@ -1,8 +1,14 @@
 version: '3.1'
 services:
-  nginx:
-    build: "./nginx/"
-    container_name: nginx-container
-    ports:
-      - "80:80"
+    # nginx:
+    #     build: "./nginx/"
+    #     container_name: nginx-container
+    #     ports:
+    #       - "443:80"
+
+    mariadb:
+        build: "./mariadb/"
+        container_name: mariadb-container
+        ports:
+            - "9000:3306"
 

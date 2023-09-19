@@ -80,3 +80,5 @@ CMD ["cmd", "args1", ...] --> execute commands after building the container from
 ps aux | grep nginx --> to check if nginx is running
 ps aux | "grep nginx" --> to run nginx in foreground
 
+
+--initfile
