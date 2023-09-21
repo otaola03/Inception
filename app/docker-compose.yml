@@ -6,9 +6,14 @@ services:
     #     ports:
     #       - "443:80"
 
-    mariadb:
-        build: "./mariadb/"
-        container_name: mariadb-container
-        ports:
-            - "9000:3306"
+    # mariadb:
+    #     build: "./mariadb/"
+    #     container_name: mariadb-container
+    #     ports:
+    #         - "9000:3306"
 
+    wordpress:
+        build: "./wordpress/"
+        container_name: wordpress-container
+        ports:
+            - "3306:80"

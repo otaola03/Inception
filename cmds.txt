@@ -81,4 +81,10 @@ ps aux | grep nginx --> to check if nginx is running
 ps aux | "grep nginx" --> to run nginx in foreground
 
 
---initfile
+===========================================
+			MARIADB CONFIG
+===========================================
+
+--init-file
+SELECT USER(), CURRENT_USER(); --> to see the current user
+SELECT User FROM mysql.user; --> to see al the users

@@ -5,12 +5,15 @@ RUN apk update && \
     apk add vim && \
     rm -f /var/cache/apk/*
 
-# Inicializa el directorio de datos de MariaDB
 RUN mkdir -p /run/mysqld && chmod 777 /run/mysqld
 RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
-# Inicia MariaDB al ejecutar el contenedor
-CMD ["mysqld", "--user=mysql", "--datadir=/var/lib/mysql"]
+# COPY my.cnf /etc/my.cnf
+COPY initFile.sql /tmp
+ 
+RUN chmod 777 /tmp/initFile.sql
+
+CMD ["mysqld", "--user=mysql", "--datadir=/var/lib/mysql", "--init-file=/tmp/initFile.sql"]
 
 # RUN apk update && \
 # 	apk add mariadb
