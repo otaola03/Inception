@@ -2,13 +2,18 @@ FROM alpine:3.1
 
 RUN apk update && \
     apk add vim && \
-	apk add php php-fpm php-opcache && \
-	apk add php-gd php-mysqli php-zlib php-curl && \
-	apk add curl
+	apk add wget
 
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
-RUN chmod +x wp-cli.phar
-RUN mv wp-cli.phar /usr/local/bin/wp-cli
+RUN mkdir -p /usr/share/webapps/
+
+RUN wget --no-check-certificate http://wordpress.org/latest.tar.gz
+RUN mv /latest.tar.gz /usr/share/webapps
+RUN tar -xzvf /usr/share/webapps/latest.tar.gz
+# RUN rm /usr/share/webapps/latest.tar.gz
+# RUN chown -R lighttpd /usr/share/webapps/
+# RUN ln -s /usr/share/webapps/wordpress/ /var/www/localhost/htdocs/wordpress
+
+
 
 CMD ["tail", "-f"]
