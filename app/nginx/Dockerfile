@@ -9,5 +9,8 @@ COPY index.html /var/lib/nginx/html
 
 RUN chmod 644 /var/lib/nginx/html/index.html
 
+EXPOSE 9000
+EXPOSE 433
+
 CMD ["nginx", "-g", "daemon off;"]
 

@@ -14,6 +14,7 @@ RUN tar -xzvf /usr/share/webapps/latest.tar.gz
 # RUN chown -R lighttpd /usr/share/webapps/
 # RUN ln -s /usr/share/webapps/wordpress/ /var/www/localhost/htdocs/wordpress
 
-
+EXPOSE 3306
+EXPOSE 9000
 
 CMD ["tail", "-f"]
