@@ -1,20 +1,12 @@
 version: '3.1'
 services:
-    nginx:
-        build: "./nginx/"
-        container_name: nginx-container
-        ports:
-            - "443:80" #pon 443:443 par ssl
-        depends_on:
-            - wordpress
-
     mariadb:
         image: mariadb-img
         build: "./mariadb/"
         container_name: mariadb-container
-        ports:
-            - "443:80"
         # Puertos aquí si es necesario
+        networks:
+            - wordpress-net
 
     wordpress:
         image: wordpress-img
@@ -23,6 +15,22 @@ services:
         # Puertos aquí si es necesario
         depends_on:
             - mariadb
-#haz una tewrok privada para todos
+        networks:
+            - wordpress-net
+            - nginx-net
 
+    nginx:
+        build: "./nginx/"
+        container_name: nginx-container
+        ports:
+            - "443:80" #pon 443:443 par ssl
+        depends_on:
+            - wordpress
+        networks:
+            - nginx-net
 
+networks:
+    nginx-net:
+        driver: bridge
+    wordpress-net:
+        driver: bridge
