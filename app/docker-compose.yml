@@ -5,32 +5,32 @@ services:
         build: "./mariadb/"
         container_name: mariadb-container
         # Puertos aquí si es necesario
+        # volumes:
+        #     - './mariadb/data:/var/lib/mysql'
         networks:
-            - wordpress-net
+            - inception-net
 
-    wordpress:
-        image: wordpress-img
-        build: "./wordpress/"
-        container_name: wordpress-container
-        # Puertos aquí si es necesario
-        depends_on:
-            - mariadb
-        networks:
-            - wordpress-net
-            - nginx-net
+    # wordpress:
+    #     image: wordpress-img
+    #     build: "./wordpress/"
+    #     container_name: wordpress-container
+    #     # Puertos aquí si es necesario
+    #     depends_on:
+    #         - mariadb
+    #     networks:
+    #         - wordpress-net
+    #         - nginx-net
 
-    nginx:
-        build: "./nginx/"
-        container_name: nginx-container
-        ports:
-            - "443:80" #pon 443:443 par ssl
-        depends_on:
-            - wordpress
-        networks:
-            - nginx-net
+    # nginx:
+    #     build: "./nginx/"
+    #     container_name: nginx-container
+    #     ports:
+    #         - "443:80" #pon 443:443 par ssl
+    #     depends_on:
+    #         - wordpress
+    #     networks:
+    #         - nginx-net
 
 networks:
-    nginx-net:
-        driver: bridge
-    wordpress-net:
+    inception-net:
         driver: bridge
