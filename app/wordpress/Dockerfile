@@ -13,6 +13,4 @@ RUN apt-get update \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& chmod 777 /tmp/setup.sh
 
-ENTRYPOINT ["/tmp/setup.sh"]
-
-# CMD ["tail", "-f"]
+CMD ["sh", "/tmp/setup.sh"]
