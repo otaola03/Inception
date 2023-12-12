@@ -1,13 +1,12 @@
-FROM alpine:3.17
+FROM debian:bullseye
 
-RUN apk update && \
-    apk add --no-cache nginx && \
-    apk add vim
+RUN apt-get update && apt-get install -y nginx
 
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY index.html /var/lib/nginx/html
+# COPY myNginx.conf /etc/nginx/nginx.conf
+ADD myNginx.conf /etc/nginx/conf.d/default.conf
+# COPY index.html /usr/share/nginx/html
 
-RUN chmod 644 /var/lib/nginx/html/index.html
+# RUN chmod 644 /var/lib/nginx/html/index.html
 
 EXPOSE 9000
 EXPOSE 433

@@ -1,20 +1,18 @@
-FROM alpine:3.17
+FROM debian:bullseye-slim
 
-RUN apk update && \
-    apk add vim && \
-	apk add wget
+# Actualizar el sistema e instalar las dependencias necesarias
+COPY wp-config.php /tmp/wp-config.php
+COPY setup.sh /tmp/setup.sh
 
+RUN apt-get update \
+    && apt-get install -y \
+        php7.4 \
+        php7.4-fpm \
+        php7.4-mysql \
+        wget \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& chmod 777 /tmp/setup.sh
 
-RUN mkdir -p /usr/share/webapps/
+ENTRYPOINT ["/tmp/setup.sh"]
 
-RUN wget --no-check-certificate http://wordpress.org/latest.tar.gz
-RUN mv /latest.tar.gz /usr/share/webapps
-RUN tar -xzvf /usr/share/webapps/latest.tar.gz
-# RUN rm /usr/share/webapps/latest.tar.gz
-# RUN chown -R lighttpd /usr/share/webapps/
-# RUN ln -s /usr/share/webapps/wordpress/ /var/www/localhost/htdocs/wordpress
-
-EXPOSE 3306
-EXPOSE 9000
-
-CMD ["tail", "-f"]
+# CMD ["tail", "-f"]
