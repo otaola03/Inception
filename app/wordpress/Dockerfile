@@ -8,18 +8,18 @@ COPY setup.sh /tmp/setup.sh
 
 RUN apt-get update \
     && apt-get install -y \
-        php7.4 \
-        php7.4-fpm \
-        php7.4-mysql \
+        php php-fpm php-mysql php-gd php-xml php-curl \
         curl \
+        vim \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
 	&& chmod +x wp-cli.phar  && mv -f wp-cli.phar /usr/local/bin/wp \
-	&& chmod 777 /tmp/setup.sh
+	&& chmod 777 /tmp/setup.sh \
+	&& mkdir -p /var/run/php
 
 COPY www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
-# RUN sed -i 's/^pid = \/run\/php\/php7\.4-fpm\.pid$/pid = \/var\/run\/php-fpm7.4.pid/' /etc/php/7.4/fpm/php-fpm.conf
+RUN sed -i 's/^pid = \/run\/php\/php7\.4-fpm\.pid$/pid = \/var\/run\/php-fpm7.4.pid/' /etc/php/7.4/fpm/php-fpm.conf
 
 CMD ["sh", "/tmp/setup.sh"]
 # CMD ["sh", "-c", "/tmp/setup.sh && /usr/sbin/php-fpm7.4 -F"]
