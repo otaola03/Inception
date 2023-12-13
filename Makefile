@@ -12,7 +12,7 @@ start :
 	@docker-compose -f ./app/docker-compose.yml start
 status :
 	@docker ps
-re : down build
+re : down fclean build
 fclean:
 	rm -rf ./app/src/*
 

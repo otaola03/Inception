@@ -10,17 +10,6 @@ services:
     #     networks:
     #         - inception-net
 
-    nginx:
-        build: "./nginx/"
-        container_name: nginx-container
-        ports:
-            - "443:80" #pon 443:443 par ssl
-        volumes:
-            - ./src:/var/www/html
-        # depends_on:
-        #     - wordpress
-        networks:
-            - inception-net
 
     wordpress:
         image: wordpress-img
@@ -31,8 +20,20 @@ services:
         #     - mariadb
         ports:
             - "9000:9000"
-        # volumes:
-        #     - ./src:/var/www/html
+        volumes:
+            - ./src:/var/www/html
+        networks:
+            - inception-net
+
+    nginx:
+        build: "./nginx/"
+        container_name: nginx-container
+        ports:
+            - "443:80" #pon 443:443 par ssl
+        volumes:
+            - ./src:/var/www/html
+        depends_on:
+            - wordpress
         networks:
             - inception-net
 
