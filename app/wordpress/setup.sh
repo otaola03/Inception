@@ -12,4 +12,4 @@ wp core download --locale=es_ES --allow-root
 # cp /tmp/wp-config.php /var/www/html/wordpress
 
 # Iniciar el servicio necesario o cualquier otro comando que mantenga el contenedor en ejecución
-tail -f
+# tail -f

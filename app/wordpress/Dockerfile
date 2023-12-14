@@ -21,5 +21,5 @@ COPY www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 RUN sed -i 's/^pid = \/run\/php\/php7\.4-fpm\.pid$/pid = \/var\/run\/php-fpm7.4.pid/' /etc/php/7.4/fpm/php-fpm.conf
 
-CMD ["sh", "/tmp/setup.sh"]
-# CMD ["sh", "-c", "/tmp/setup.sh && /usr/sbin/php-fpm7.4 -F"]
+# CMD ["sh", "/tmp/setup.sh"]
+CMD ["sh", "-c", "/tmp/setup.sh && /usr/sbin/php-fpm7.4 -F"]
