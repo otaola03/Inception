@@ -1,10 +1,10 @@
 FROM debian:bullseye
 
 RUN \
-	apt-get update && apt-get install -y nginx
+	apt-get update && apt-get install -y nginx curl
 	# && chown -R www-data:www-data /var/www/html/example.com/
 
-COPY myNginx2.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 # ADD myNginx.conf /etc/nginx/conf.d/default.conf
 # COPY index.html /usr/share/nginx/html
 

@@ -9,27 +9,32 @@ services:
     #         - './mariadb/data:/var/lib/mysql'
     #     networks:
     #         - inception-net
-
+    #     ports:
+    #         - "3306:3306"
 
     wordpress:
         image: wordpress-img
         build: "./wordpress/"
-        container_name: wordpress-container
+        container_name: wordpress
         # Puertos aquí si es necesario
         # depends_on:
         #     - mariadb
-        ports:
-            - "9000:9000"
+        expose:
+            - "9000"
         volumes:
             - ./src:/var/www/html
         networks:
             - inception-net
+        # depends_on:
+        #     - mariadb
 
     nginx:
         build: "./nginx/"
-        container_name: nginx-container
+        container_name: nginx
         ports:
             - "443:80" #pon 443:443 par ssl
+        expose:
+            - "9000"
         volumes:
             - ./src:/var/www/html
         depends_on:

@@ -13,13 +13,17 @@ RUN apt-get update \
         vim \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-	&& chmod +x wp-cli.phar  && mv -f wp-cli.phar /usr/local/bin/wp \
+	&& chmod +x wp-cli.phar \
+	&& mv -f wp-cli.phar /usr/local/bin/wp \
 	&& chmod 777 /tmp/setup.sh \
 	&& mkdir -p /var/run/php
 
 COPY www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
+EXPOSE 9000
+
 RUN sed -i 's/^pid = \/run\/php\/php7\.4-fpm\.pid$/pid = \/var\/run\/php-fpm7.4.pid/' /etc/php/7.4/fpm/php-fpm.conf
+ RUN sed -i 's/default_socket_timeout = 60/default_socket_timeout = 60000/' /etc/php/7.4/fpm/php.ini
 
 # CMD ["sh", "/tmp/setup.sh"]
 CMD ["sh", "-c", "/tmp/setup.sh && /usr/sbin/php-fpm7.4 -F"]
