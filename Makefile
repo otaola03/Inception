@@ -13,6 +13,13 @@ start :
 status :
 	@docker ps
 re : down fclean build
+
+exec-n :
+	docker exec -it nginx sh
+
+exec-w :
+	docker exec -it wordpress sh
+
 fclean:
 	rm -rf ./app/src/*
 
