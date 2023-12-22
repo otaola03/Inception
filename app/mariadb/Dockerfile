@@ -1,23 +1,16 @@
-FROM alpine:3.17
+FROM debian:bullseye
 
-RUN <<EOF
-	apk update && 
-    apk add mariadb mariadb-client && 
-    apk add vim && 
-    rm -f /var/cache/apk/* &&
-	mkdir -p /run/mysqld && chmod 777 /run/mysqld &&
-	mysql_install_db --user=mysql --datadir=/var/lib/mysql
-EOF
-# COPY my.cnf /etc/my.cnf
-COPY initFile.sql /tmp
- 
-RUN chmod 777 /tmp/initFile.sql
+COPY ./conf/*  /tmp/
+
+RUN \
+	apt-get update \
+	&& apt-get -y install mariadb-server vim \
+	&& service mysql start \
+	&& chmod +x /tmp/create.sh \
+	&& chmod +x /tmp/init.sh
+	# && /tmp/init.sh
 
 EXPOSE 3306
 
-CMD ["mysqld", "--user=mysql", "--datadir=/var/lib/mysql", "--init-file=/tmp/initFile.sql"]
-
-# RUN apk update && \
-# 	apk add mariadb
-
-# CMD ["tail", "-f"]
+CMD ["tail", "-f"]
+CMD [ "mysqld ", "--init-file=/tmp/init.sql"]

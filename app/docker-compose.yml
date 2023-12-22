@@ -1,43 +1,49 @@
 version: '3.1'
 services:
-    # mariadb:
-    #     image: mariadb-img
-    #     build: "./mariadb/"
-    #     container_name: mariadb-container
+    mariadb:
+        image: mariadb-img
+        build: "./mariadb/"
+        container_name: mariadb
+        # Puertos aquí si es necesario
+        # volumes:
+        #     - ./app/mariadb/data:/var/lib/mysql
+        networks:
+            - inception-net
+        env_file:
+            - .env
+
+
+    # wordpress:
+    #     image: wordpress-img
+    #     build: "./wordpress/"
+    #     container_name: wordpress
     #     # Puertos aquí si es necesario
+    #     # depends_on:
+    #     #     - mariadb
+    #     expose:
+    #         - "9000"
     #     volumes:
-    #         - './mariadb/data:/var/lib/mysql'
+    #         - ./src:/var/www/html
     #     networks:
     #         - inception-net
+    #     env_file:
+    #         - .env
 
-
-    wordpress:
-        image: wordpress-img
-        build: "./wordpress/"
-        container_name: wordpress
-        # Puertos aquí si es necesario
-        # depends_on:
-        #     - mariadb
-        expose:
-            - "9000"
-        volumes:
-            - ./src:/var/www/html
-        networks:
-            - inception-net
-
-    nginx:
-        build: "./nginx/"
-        container_name: nginx
-        ports:
-            - "443:80" #pon 443:443 par ssl
-        expose:
-            - "9000"
-        volumes:
-            - ./src:/var/www/html
-        depends_on:
-            - wordpress
-        networks:
-            - inception-net
+    # nginx:
+    #     build: "./nginx/"
+    #     container_name: nginx
+    #     ports:
+    #         - "443:80" #pon 443:443 par ssl
+    #     expose:
+    #         - "9000"
+    #     volumes:
+    #         - ./src:/var/www/html
+    #     depends_on:
+    #         - wordpress
+    #     networks:
+    #         - inception-net
+    #     env_file:
+    #         - .env
 
 
 networks:
