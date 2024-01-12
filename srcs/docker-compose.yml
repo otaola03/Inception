@@ -2,11 +2,11 @@ version: '3.1'
 services:
     mariadb:
         image: mariadb-img
-        build: "./mariadb/"
+        build: "requirements/mariadb/"
         container_name: mariadb
         # Puertos aquí si es necesario
         # volumes:
-        #     - ./app/mariadb/data:/var/lib/mysql
+        #     - ./requirements/mariadb/data:/var/lib/mysql
         networks:
             - inception-net
         env_file:
