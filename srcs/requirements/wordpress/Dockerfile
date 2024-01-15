@@ -3,8 +3,8 @@ FROM debian:bullseye
 WORKDIR /var/www/html
 
 # Actualizar el sistema e instalar las dependencias necesarias
-COPY wp-config.php /tmp/wp-config.php
-COPY setup.sh /tmp/setup.sh
+# COPY conf/wp-config.php /tmp/wp-config.php
+COPY conf/setup.sh /tmp/setup.sh
 
 RUN apt-get update \
     && apt-get install -y \
@@ -17,7 +17,7 @@ RUN apt-get update \
 	&& chmod 777 /tmp/setup.sh \
 	&& mkdir -p /var/run/php
 
-COPY www.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 RUN sed -i 's/^pid = \/run\/php\/php7\.4-fpm\.pid$/pid = \/var\/run\/php-fpm7.4.pid/' /etc/php/7.4/fpm/php-fpm.conf
 

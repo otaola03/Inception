@@ -9,43 +9,53 @@ services:
         #     - ./requirements/mariadb/data:/var/lib/mysql
         networks:
             - inception-net
+        expose:
+            - "3306"
         env_file:
             - .env
 
 
-    # wordpress:
-    #     image: wordpress-img
-    #     build: "./wordpress/"
-    #     container_name: wordpress
-    #     # Puertos aquí si es necesario
-    #     # depends_on:
-    #     #     - mariadb
-    #     expose:
-    #         - "9000"
-    #     volumes:
-    #         - ./src:/var/www/html
-    #     networks:
-    #         - inception-net
-    #     env_file:
-    #         - .env
+    wordpress:
+        image: wordpress-img
+        build: "requirements/wordpress/"
+        container_name: wordpress
+        # Puertos aquí si es necesario
+        depends_on:
+            - mariadb
+        expose:
+            - "9000"
+        volumes:
+            - wordpress:/var/www/html
+        networks:
+            - inception-net
+        env_file:
+            - .env
 
-    # nginx:
-    #     build: "./nginx/"
-    #     container_name: nginx
-    #     ports:
-    #         - "443:80" #pon 443:443 par ssl
-    #     expose:
-    #         - "9000"
-    #     volumes:
-    #         - ./src:/var/www/html
-    #     depends_on:
-    #         - wordpress
-    #     networks:
-    #         - inception-net
-    #     env_file:
-    #         - .env
+    nginx:
+        build: "requirements/nginx/"
+        container_name: nginx
+        ports:
+            - "443:80" #pon 443:443 par ssl
+        expose:
+            - "9000"
+        volumes:
+            - wordpress:/var/www/html
+        depends_on:
+            - wordpress
+        networks:
+            - inception-net
+        env_file:
+            - .env
 
 
 networks:
     inception-net:
         driver: bridge
+
+volumes:
+    wordpress:
+        driver: local
+        driver_opts:
+            type: volume
+            device: /home/jperez/data/wordpress
+            o: bind

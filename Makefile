@@ -27,6 +27,7 @@ clean-w :
 
 build-w :
 	@docker-compose -f ./srcs/docker-compose.yml up --build -d wordpress
+re-w : down-w clean-m build-m
 
 
 exec-m :
