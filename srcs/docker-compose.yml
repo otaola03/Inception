@@ -1,18 +1,18 @@
 version: '3.1'
 services:
-    mariadb:
-        image: mariadb-img
-        build: "requirements/mariadb/"
-        container_name: mariadb
-        # Puertos aquí si es necesario
-        # volumes:
-        #     - ./requirements/mariadb/data:/var/lib/mysql
-        networks:
-            - inception-net
-        expose:
-            - "3306"
-        env_file:
-            - .env
+    # mariadb:
+    #     image: mariadb-img
+    #     build: "requirements/mariadb/"
+    #     container_name: mariadb
+    #     # Puertos aquí si es necesario
+    #     # volumes:
+    #     #     - ./requirements/mariadb/data:/var/lib/mysql
+    #     networks:
+    #         - inception-net
+    #     expose:
+    #         - "3306"
+    #     env_file:
+    #         - .env
 
 
     wordpress:
@@ -20,12 +20,13 @@ services:
         build: "requirements/wordpress/"
         container_name: wordpress
         # Puertos aquí si es necesario
-        depends_on:
-            - mariadb
+        # depends_on:
+        #     - mariadb
         expose:
             - "9000"
         volumes:
-            - wordpress:/var/www/html
+            # - wordpress:/var/www/html
+            - /Users/jperez/Desktop/data/wordpress:/var/www/html
         networks:
             - inception-net
         env_file:
@@ -39,7 +40,8 @@ services:
         expose:
             - "9000"
         volumes:
-            - wordpress:/var/www/html
+            # - wordpress:/var/www/html
+            - /Users/jperez/Desktop/data/wordpress:/var/www/html
         depends_on:
             - wordpress
         networks:
