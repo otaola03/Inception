@@ -1,53 +1,55 @@
 version: '3.1'
 services:
-    # mariadb:
-    #     image: mariadb-img
-    #     build: "requirements/mariadb/"
-    #     container_name: mariadb
+    mariadb:
+        image: mariadb-img
+        build: "requirements/mariadb/"
+        container_name: mariadb
+        # Puertos aquí si es necesario
+        volumes:
+            # - ./requirements/mariadb/data:/var/lib/mysql
+            # - /Users/jperez/Desktop/data/mariadb:/var/lib/mysql
+            - mariadb:/var/lib/mysql/
+        networks:
+            - inception-net
+        expose:
+            - "3306"
+        env_file:
+            - .env
+
+
+    # wordpress:
+    #     image: wordpress-img
+    #     build: "requirements/wordpress/"
+    #     container_name: wordpress
     #     # Puertos aquí si es necesario
-    #     # volumes:
-    #     #     - ./requirements/mariadb/data:/var/lib/mysql
+    #     depends_on:
+    #         - mariadb
+    #     expose:
+    #         - "9000"
+    #     volumes:
+    #         # - wordpress:/var/www/html
+    #         - /Users/jperez/Desktop/data/wordpress:/var/www/html
     #     networks:
     #         - inception-net
-    #     expose:
-    #         - "3306"
     #     env_file:
     #         - .env
 
-
-    wordpress:
-        image: wordpress-img
-        build: "requirements/wordpress/"
-        container_name: wordpress
-        # Puertos aquí si es necesario
-        # depends_on:
-        #     - mariadb
-        expose:
-            - "9000"
-        volumes:
-            # - wordpress:/var/www/html
-            - /Users/jperez/Desktop/data/wordpress:/var/www/html
-        networks:
-            - inception-net
-        env_file:
-            - .env
-
-    nginx:
-        build: "requirements/nginx/"
-        container_name: nginx
-        ports:
-            - "443:80" #pon 443:443 par ssl
-        expose:
-            - "9000"
-        volumes:
-            # - wordpress:/var/www/html
-            - /Users/jperez/Desktop/data/wordpress:/var/www/html
-        depends_on:
-            - wordpress
-        networks:
-            - inception-net
-        env_file:
-            - .env
+    # nginx:
+    #     build: "requirements/nginx/"
+    #     container_name: nginx
+    #     ports:
+    #         - "443:80" #pon 443:443 par ssl
+    #     expose:
+    #         - "9000"
+    #     volumes:
+    #         # - wordpress:/var/www/html
+    #         - /Users/jperez/Desktop/data/wordpress:/var/www/html
+    #     depends_on:
+    #         - wordpress
+    #     networks:
+    #         - inception-net
+    #     env_file:
+    #         - .env
 
 
 networks:
@@ -60,4 +62,10 @@ volumes:
         driver_opts:
             type: volume
             device: /home/jperez/data/wordpress
+            o: bind
+    mariadb:
+        driver: local
+        driver_opts:
+            type: none
+            device: /Users/jperez/data/DB
             o: bind
