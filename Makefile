@@ -1,3 +1,6 @@
+MARIADB_PATH=/Users/jperez/data/DB
+WORDPRESS_PATH=/Users/jperez/data/wordpress
+
 all : up
 
 up :
@@ -41,8 +44,8 @@ build-m :
 re-m : down-m clean-m build-m
 
 clean:
-	rm -rf ./app/src/*
-	rm -rf ./app/mariadb/data/*
+	rm -rf $(MARIADB_PATH)/*
+	rm -rf $(WORDPRESS_PATH)/*
 
 fclean: down clean
 	docker volume prune -f
