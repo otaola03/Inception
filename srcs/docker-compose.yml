@@ -18,39 +18,39 @@ services:
             - .env
 
 
-    # wordpress:
-    #     image: wordpress-img
-    #     build: "requirements/wordpress/"
-    #     container_name: wordpress
-    #     # Puertos aquí si es necesario
-    #     depends_on:
-    #         - mariadb
-    #     expose:
-    #         - "9000"
-    #     volumes:
-    #         # - wordpress:/var/www/html
-    #         - /Users/jperez/Desktop/data/wordpress:/var/www/html
-    #     networks:
-    #         - inception-net
-    #     env_file:
-    #         - .env
+    wordpress:
+        image: wordpress-img
+        build: "requirements/wordpress/"
+        container_name: wordpress
+        # Puertos aquí si es necesario
+        depends_on:
+            - mariadb
+        expose:
+            - "9000"
+        volumes:
+            # - wordpress:/var/www/html
+            - /Users/jperez/Desktop/data/wordpress:/var/www/html
+        networks:
+            - inception-net
+        env_file:
+            - .env
 
-    # nginx:
-    #     build: "requirements/nginx/"
-    #     container_name: nginx
-    #     ports:
-    #         - "443:80" #pon 443:443 par ssl
-    #     expose:
-    #         - "9000"
-    #     volumes:
-    #         # - wordpress:/var/www/html
-    #         - /Users/jperez/Desktop/data/wordpress:/var/www/html
-    #     depends_on:
-    #         - wordpress
-    #     networks:
-    #         - inception-net
-    #     env_file:
-    #         - .env
+    nginx:
+        build: "requirements/nginx/"
+        container_name: nginx
+        ports:
+            - "443:443" #pon 443:443 par ssl
+        expose:
+            - "9000"
+        volumes:
+            # - wordpress:/var/www/html
+            - /Users/jperez/Desktop/data/wordpress:/var/www/html
+        depends_on:
+            - wordpress
+        networks:
+            - inception-net
+        env_file:
+            - .env
 
 
 networks:
