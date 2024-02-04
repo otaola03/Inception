@@ -4,11 +4,17 @@ mkdir -p /var/www/html/
 chmod 777 /var/www/html/
 cd /var/www/html
 rm -rf *
+
+while ! nc -z mariadb 3306; do
+  echo "Esperando a que el contenedor 'db' esté disponible..."
+  sleep 1
+done
+
 wp core download --locale=es_ES --allow-root
 
 mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
-line 23
+# line 23
 sed -i -r "s/database_name_here/$MYSQL_DATABASE/1"   /var/www/html/wp-config.php
 #line 26
 sed -i -r "s/username_here/$MYSQL_USER/1"  /var/www/html/wp-config.php
@@ -23,7 +29,15 @@ sed -i -r "s/localhost/mariadb/1"    /var/www/html/wp-config.php  #(to connect w
 # wp user create $WP_USER $WP_EMAIL --role=author --user_pass=$WP_PASSWORD --allow-root
 
 # wp core install --allow-root --url="$DOMAIN_NAME" --title="INCEPTION" --admin_user="$WP_ADMIN" --admin_password="$WP_ADMIN_PASSWORD" --admin_email="$WP_EMAIL"
-wp core install --path=/var/www/html --url=https://localhost --title="Esto Funciona!!!" --admin_name=${WP_ADMIN_USER} --admin_user=${WP_ADMIN_USER} --admin_password=${WP_ADMIN_PASSWORD} --admin_email="jperez@student.42urduliz.com" --skip-email --allow-root
+wp core install --path=/var/www/html --url=https://localhost --title="MI PAGINA WEB" --admin_name=${WP_ADMIN_USER} --admin_user=${WP_ADMIN_USER} --admin_password=${WP_ADMIN_PASSWORD} --admin_email="jperez@student.42urduliz.com" --skip-email --allow-root
 
-wp user create $WP_USER jperez@student.42urduliz.com --allow-root --role="administrator" --user_pass=$WP_PASSWORD
+# wp user create $WP_USER jperez@student.42urduliz.com --allow-root --role="administrator" --user_pass=$WP_PASSWORD
 
+
+if wp user get "$WP_USER" &>/dev/null; then
+echo "El usuario ya existe."
+else
+	# Crear el usuario si no existe
+	wp user create $WP_USER jperez_user@student.42urduliz.com --allow-root --role="administrator" --user_pass=$WP_PASSWORD
+	echo "Usuario creado exitosamente."
+fi
