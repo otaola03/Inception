@@ -15,7 +15,8 @@ start :
 	@docker-compose -f ./srcs/docker-compose.yml start
 status :
 	@docker ps
-re : down clean build
+# re : down clean build
+re : down build
 
 
 exec-n :
@@ -29,7 +30,7 @@ clean:
 	rm -rf $(MARIADB_PATH)/*
 	rm -rf $(WORDPRESS_PATH)/*
 
-fclean: down clean
+fclean: down #clean
 	docker volume prune -f
 	docker image prune -a
 	docker network prune -f

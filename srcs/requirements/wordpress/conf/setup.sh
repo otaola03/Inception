@@ -33,7 +33,7 @@ sed -i -r "s/localhost/mariadb/1"    /var/www/html/wp-config.php  #(to connect w
 # wp user create $WP_USER $WP_EMAIL --role=author --user_pass=$WP_PASSWORD --allow-root
 
 # wp core install --allow-root --url="$DOMAIN_NAME" --title="INCEPTION" --admin_user="$WP_ADMIN" --admin_password="$WP_ADMIN_PASSWORD" --admin_email="$WP_EMAIL"
-wp core install --path=/var/www/html --url=https://localhost --title="MI PAGINA WEB" --admin_name=${WP_ADMIN_USER} --admin_user=${WP_ADMIN_USER} --admin_password=${WP_ADMIN_PASSWORD} --admin_email="jperez@student.42urduliz.com" --skip-email --allow-root
+wp core install --path=/var/www/html --url=${DOMAIN_NAME} --title="MI PAGINA WEB" --admin_name=${WP_ADMIN_USER} --admin_user=${WP_ADMIN_USER} --admin_password=${WP_ADMIN_PASSWORD} --admin_email="jperez@student.42urduliz.com" --skip-email --allow-root
 
 # wp user create $WP_USER jperez@student.42urduliz.com --allow-root --role="administrator" --user_pass=$WP_PASSWORD
 

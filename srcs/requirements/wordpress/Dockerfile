@@ -2,21 +2,35 @@ FROM debian:bullseye
 
 WORKDIR /var/www/html
 
+ENV TERM xterm
+
 # Actualizar el sistema e instalar las dependencias necesarias
 # COPY conf/wp-config.php /tmp/wp-config.php
 COPY conf/setup.sh /tmp/setup.sh
 
+# RUN apt-get update \
+#     && apt-get install -y \
+#         php php-fpm php-mysql php-gd php-xml php-curl \
+#         curl \
+#         vim \
+# 		netcat \
+# 	&& rm -rf /var/lib/apt/lists/* \
+# 	&& curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+# 	&& chmod +x wp-cli.phar  && mv -f wp-cli.phar /usr/local/bin/wp \
+# 	&& chmod 777 /tmp/setup.sh \
+# 	&& mkdir -p /var/run/php
+
 RUN apt-get update \
-    && apt-get install -y \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         php php-fpm php-mysql php-gd php-xml php-curl \
         curl \
         vim \
-		netcat \
-	&& rm -rf /var/lib/apt/lists/* \
-	&& curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-	&& chmod +x wp-cli.phar  && mv -f wp-cli.phar /usr/local/bin/wp \
-	&& chmod 777 /tmp/setup.sh \
-	&& mkdir -p /var/run/php
+        netcat \
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+    && chmod +x wp-cli.phar && mv -f wp-cli.phar /usr/local/bin/wp \
+    && chmod 777 /tmp/setup.sh \
+    && mkdir -p /var/run/php
 
 COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 

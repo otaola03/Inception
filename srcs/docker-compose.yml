@@ -38,6 +38,7 @@ services:
 
     nginx:
         build: "requirements/nginx/"
+        image: nginx-img
         container_name: nginx
         ports:
             - "443:443" #pon 443:443 par ssl
