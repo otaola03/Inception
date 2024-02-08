@@ -1,5 +1,5 @@
-MARIADB_PATH=/Users/jperez/data/DB
-WORDPRESS_PATH=/Users/jperez/data/wordpress
+MARIADB_PATH=/home/jperez/data/DB
+WORDPRESS_PATH=/home/jperez/data/wordpress
 
 all : up
 
@@ -20,28 +20,10 @@ re : down clean build
 
 exec-n :
 	docker exec -it nginx sh
-
-
 exec-w :
 	docker exec -it wordpress sh
-down-w :
-	@docker-compose -f ./srcs/docker-compose.yml down wordpress
-clean-w :
-
-build-w :
-	@docker-compose -f ./srcs/docker-compose.yml up --build -d wordpress
-re-w : down-w clean-m build-m
-
-
 exec-m :
 	docker exec -it mariadb sh
-down-m :
-	docker-compose -f ./srcs/docker-compose.yml down -v --remove-orphans mariadb
-clean-m :
-	rm -rf ./app/mariadb/data/*
-build-m :
-	@docker-compose -f ./srcs/docker-compose.yml up --build -d mariadb
-re-m : down-m clean-m build-m
 
 clean:
 	rm -rf $(MARIADB_PATH)/*

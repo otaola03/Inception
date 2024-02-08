@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -f "/var/www/html/wp-config.php" ] && [ -f "/var/www/html/index.php" ] && [ -d "/var/www/html/wp-content" ]; then
+  exit 0  # Éxito
+fi
+
 mkdir -p /var/www/html/
 chmod 777 /var/www/html/
 cd /var/www/html

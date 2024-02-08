@@ -28,8 +28,8 @@ services:
         expose:
             - "9000"
         volumes:
-            # - wordpress:/var/www/html
-            - /Users/jperez/Desktop/data/wordpress:/var/www/html
+            - wordpress:/var/www/html
+            # - /Users/jperez/data/wordpress:/var/www/html
         networks:
             - inception-net
         restart: always
@@ -44,8 +44,8 @@ services:
         expose:
             - "9000"
         volumes:
-            # - wordpress:/var/www/html
-            - /Users/jperez/Desktop/data/wordpress:/var/www/html
+            - wordpress:/var/www/html
+            # - /Users/jperez/data/wordpress:/var/www/html
         depends_on:
             - wordpress
         networks:
@@ -70,5 +70,5 @@ volumes:
         driver: local
         driver_opts:
             type: none
-            device: /Users/jperez/data/DB
+            device: /home/jperez/data/DB
             o: bind
