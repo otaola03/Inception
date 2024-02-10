@@ -15,4 +15,4 @@ services under specific rules.
 - Volumes for your WordPress database and website files.
 - A Docker network to facilitate seamless communication between your containers.
 - Implementation of automatic container restarts in the event of a crash.
-<img width="274" alt="Captura de pantalla 2024-02-10 182741" src="https://github.com/otaola03/Inception/assets/108891460/b5423a0c-8d90-4cf5-811d-94c20dd0dc41">
+<img width="500" alt="Captura de pantalla 2024-02-10 182741" src="https://github.com/otaola03/Inception/assets/108891460/b5423a0c-8d90-4cf5-811d-94c20dd0dc41">
